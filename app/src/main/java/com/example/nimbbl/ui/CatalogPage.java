@@ -1,18 +1,18 @@
 package com.example.nimbbl.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.nimbbl.R;
 import com.example.nimbbl.data.model.model.CatalogModel;
+import com.zl.nimbblpaycoresdk.interfaces.NimbblCheckoutPaymentListener;
+import com.zl.nimbblpaycoresdk.models.NimbblCheckoutOptions;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import tech.nimbbl.checkout.sdk.NimbblCheckoutOptions;
-import tech.nimbbl.checkout.sdk.NimbblCheckoutPaymentListener;
 import tech.nimbbl.checkout.sdk.NimbblCheckoutSDK;
 
 public class CatalogPage extends AppCompatActivity implements NimbblCheckoutPaymentListener {
@@ -80,8 +78,13 @@ public class CatalogPage extends AppCompatActivity implements NimbblCheckoutPaym
     public final void makePayment(@NotNull String orderId) {
         //Intrinsics.checkParameterIsNotNull(orderId, "orderId");
         NimbblCheckoutOptions.Builder b = new NimbblCheckoutOptions.Builder();
+
+        //Production url
+        String apiUrl = "https://api.nimbbl.tech/api/v2/";
+        String webViewUrl ="https://checkout.nimbbl.tech/?modal=false&order_id=";
+        String webViewRespUrl ="https://checkout.nimbbl.tech/mobile/redirect";
         NimbblCheckoutOptions options = b.setKey("access_key_1MwvMkKkweorz0ry").setOrderId(orderId).build();
-        NimbblCheckoutSDK.getInstance().init(this);
-        NimbblCheckoutSDK.getInstance().checkout(options);
+        NimbblCheckoutSDK.Companion.getInstance().init(this,apiUrl,webViewUrl,webViewRespUrl);
+        NimbblCheckoutSDK.Companion.getInstance().checkout(options);
     }
 }

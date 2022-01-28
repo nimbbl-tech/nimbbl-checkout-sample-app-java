@@ -1,23 +1,10 @@
 package com.example.nimbbl;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
-import android.os.Environment;
 import android.os.StrictMode;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 
 import com.example.nimbbl.data.model.network.ApiCallJava;
@@ -25,13 +12,9 @@ import com.example.nimbbl.listener.InternetConnectionListener;
 import com.example.nimbbl.listener.NetworkConnectionInterceptor;
 import com.google.gson.Gson;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.CipherSuite;
-import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
-import okhttp3.TlsVersion;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
