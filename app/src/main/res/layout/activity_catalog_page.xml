@@ -23,6 +23,12 @@
             android:textColor="#3F414D"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_settings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_round_settings_24"
+            android:backgroundTint="@color/black"/>
 
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -26,6 +26,16 @@ public class Nimbbl extends MultiDexApplication {
     private ApiCallJava apiService;
     private InternetConnectionListener mInternetConnectionListener;
 
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
+    private String baseUrl = "https://shop.nimbbl.tech/api/";
+
 
     @Override
     public void onCreate() {
@@ -54,7 +64,7 @@ public class Nimbbl extends MultiDexApplication {
 
     public ApiCallJava getApiService() {
         if (apiService == null) {
-            apiService = provideRetrofit("https://shop.nimbbl.tech/api/").create(ApiCallJava.class);
+            apiService = provideRetrofit(baseUrl).create(ApiCallJava.class);
         }
         return apiService;
     }

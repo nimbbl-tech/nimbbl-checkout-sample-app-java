@@ -2,14 +2,17 @@ package com.example.nimbbl.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nimbbl.Nimbbl;
@@ -61,22 +64,32 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogH
         holder.buyNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
 
-                ((Nimbbl) ((Activity)context).getApplication()).getApiService()
-                        .createOrder(new Catlogbody(catalogModel.getId()))
-                        .enqueue(new Callback<CreateOrder_Model>() {
-                            @Override
-                            public void onResponse(Call<CreateOrder_Model> call, Response<CreateOrder_Model> response) {
-                                if (response.isSuccessful()) {
-                                    ((CatalogPage)context).makePayment(response.body().getResult().getItem().getOrder_id());
+                    SharedPreferences preferences = context.getSharedPreferences("nimmbl_configs_prefs",
+                            AppCompatActivity.MODE_PRIVATE
+                    );
+                    String baseUrl = preferences.getString("shop_base_url", Nimbbl.getInstance().getBaseUrl());
+
+                    ((Nimbbl) ((Activity) context).getApplication()).getApiService()
+                            .createOrder(baseUrl + "orders/create", new Catlogbody(catalogModel.getId()))
+                            .enqueue(new Callback<CreateOrder_Model>() {
+                                @Override
+                                public void onResponse(Call<CreateOrder_Model> call, Response<CreateOrder_Model> response) {
+                                    if (response.isSuccessful()) {
+                                        ((CatalogPage) context).makePayment(response.body().getResult().getItem().getOrder_id());
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(Call<CreateOrder_Model> call, Throwable t) {
+                                @Override
+                                public void onFailure(Call<CreateOrder_Model> call, Throwable t) {
 
-                            }
-                        });
+                                }
+                            });
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(context,"Unable to create order,",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

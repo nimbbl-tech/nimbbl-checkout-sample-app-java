@@ -6,9 +6,11 @@ import com.example.nimbbl.data.model.model.postbody.Catlogbody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.Url;
 
 public interface ApiCallJava {
 
-    @POST("orders/create")
-    Call<CreateOrder_Model> createOrder(@Body Catlogbody productId);
+
+    @POST
+    Call<CreateOrder_Model> createOrder(@Url String url, @Body Catlogbody productId);
 }

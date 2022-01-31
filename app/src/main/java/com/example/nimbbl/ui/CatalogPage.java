@@ -1,14 +1,18 @@
 package com.example.nimbbl.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nimbbl.Nimbbl;
+import com.example.nimbbl.NimbblConfigActivity;
 import com.example.nimbbl.R;
 import com.example.nimbbl.data.model.model.CatalogModel;
 import com.zl.nimbblpaycoresdk.interfaces.NimbblCheckoutPaymentListener;
@@ -21,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import tech.nimbbl.checkout.sdk.NimbblCheckoutSDK;
+
 
 public class CatalogPage extends AppCompatActivity implements NimbblCheckoutPaymentListener {
     RecyclerView recyclerview_catalog;
@@ -47,6 +52,15 @@ public class CatalogPage extends AppCompatActivity implements NimbblCheckoutPaym
         catalogList.add(catalogModel);
 
         this.setUpRecycelrvView(catalogList);
+
+        SharedPreferences preferences = getSharedPreferences("nimmbl_configs_prefs", MODE_PRIVATE);
+        Nimbbl.getInstance().setBaseUrl(preferences.getString("shop_base_url",Nimbbl.getInstance().getBaseUrl()));
+        TextView tv_settings =  findViewById(R.id.tv_settings);
+        tv_settings.setOnClickListener(view -> {
+            Intent i =  new Intent(this, NimbblConfigActivity.class);
+            startActivity(i);
+
+        });
     }
 
     public final void setUpRecycelrvView(List<CatalogModel> catalogList) {
@@ -79,12 +93,8 @@ public class CatalogPage extends AppCompatActivity implements NimbblCheckoutPaym
         //Intrinsics.checkParameterIsNotNull(orderId, "orderId");
         NimbblCheckoutOptions.Builder b = new NimbblCheckoutOptions.Builder();
 
-        //Production url
-        String apiUrl = "https://api.nimbbl.tech/api/v2/";
-        String webViewUrl ="https://checkout.nimbbl.tech/?modal=false&order_id=";
-        String webViewRespUrl ="https://checkout.nimbbl.tech/mobile/redirect";
         NimbblCheckoutOptions options = b.setKey("access_key_1MwvMkKkweorz0ry").setOrderId(orderId).build();
-        NimbblCheckoutSDK.Companion.getInstance().init(this,apiUrl,webViewUrl,webViewRespUrl);
+        NimbblCheckoutSDK.Companion.getInstance().init(this);
         NimbblCheckoutSDK.Companion.getInstance().checkout(options);
     }
 }

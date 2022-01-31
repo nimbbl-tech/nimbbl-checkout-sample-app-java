@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        tools:context=".NimbblConfigActivity">
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select an environment"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <RadioGroup
+            android:id="@+id/radio_sandbox_group"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginTop="10dp"
+            android:checkedButton="@+id/radio_dev"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radio_dev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dev" />
+
+            <RadioButton
+                android:id="@+id/radio_uat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UAT" />
+
+            <RadioButton
+                android:id="@+id/radio_preprod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PreProd" />
+
+            <RadioButton
+                android:id="@+id/radio_prod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prod" />
+        </RadioGroup>
+
+        <View
+            android:id="@+id/vw_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/radio_sandbox_group"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_title_accesskey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vw_divider"
+            android:layout_marginTop="10dp"
+            android:text="Enter an access key"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_access_key"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tv_title_accesskey"
+            android:layout_marginTop="10dp"
+            android:text="access_key_1MwvMkKkweorz0ry" />
+
+        <View
+            android:id="@+id/vw_divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/edt_access_key"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_title_app_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vw_divider1"
+            android:layout_marginTop="10dp"
+            android:text="Select an sample app"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <RadioGroup
+            android:id="@+id/radio_sampleapp_group"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title_app_type"
+            android:layout_marginTop="5dp"
+            android:checkedButton="@+id/radio_dev"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radio_custom_browser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Custom Browser" />
+
+            <RadioButton
+                android:id="@+id/radio_native"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="Native" />
+        </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_done"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_below="@+id/radio_sampleapp_group"
+            android:layout_marginTop="10dp"
+            android:text="Done" />
+
+    </RelativeLayout>
+</ScrollView>
